@@ -29,3 +29,118 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
+
+# API 
+### 게시글 목록
+* URL : api/post/
+* Method : GET
+* Description : 게시된 모든 게시물의 목록을 볼 수 있습니다.
+* Response :
+```
+[
+{
+"id": 1,
+"tags": [
+{
+"name": "{'name': '태그1 수정'}"
+}
+],
+"title": "제목 수정1",
+"content": "내용 수정",
+"created_at": "2023-08-22T08:11:42.241124Z",
+"updated_at": "2023-08-25T04:37:38.446555Z",
+"hit": 1
+}
+] 
+```
+### 게시글 상세 조회
+* URL : api/post/detail/1/
+* Method : GET
+* Description : 특정 게시물에 대한 내용, 작성자 및 기타 세부 정보를 확인할 수 있습니다.
+* Response :
+```
+{
+"post_id": 1,
+"title": "제목 1",
+"content": "내용",
+"tags": [
+{
+"name": "{'name': '태그1'}"
+}
+],
+"hit": 1
+}
+```
+### 게시글 작성
+* URL : api/post/write
+* Method : POST
+* Description : 제목, 내용 및 관련 정보를 제출하여 새 게시물을 만들 수 있습니다.
+* Request Body : 
+```
+{
+"title": "제목",
+"content": "내용",
+"tags": [
+{"name": "태그"},
+]
+}
+```
+* Response :
+```
+{
+"id": 1,
+"tags": [
+{
+"name": "{'name': '태그1'}"
+}
+],
+"title": "제목 1",
+"content": "내용 1",
+"created_at": "2023-08-22T08:11:42.241124Z",
+"updated_at": "2023-08-25T07:26:47.254487Z",
+"hit": 0
+}
+```
+### 게시글 수정
+* URL : api/post/detail/1/edit/
+* Method : GET, POST
+* Description : 특정 게시물의 내용, 해시태그 및 기타 세부 정보를 수정할 수 있습니다. 
+* Request Body : 
+```
+{
+"title": "제목",
+"content": "내용",
+"tags": [
+{"name": "태그"},
+]
+}
+```
+* Response :
+```
+{
+"id": 1,
+"tags": [
+{
+"name": "{'name': '태그1 수정'}"
+},
+{
+"name": "{'name': '태그2 추가'}"
+}
+],
+"title": "제목 수정1",
+"content": "내용 수정1",
+"created_at": "2023-08-22T08:11:42.241124Z",
+"updated_at": "2023-08-25T07:26:47.254487Z",
+"hit": 1
+}
+```
+### 게시글 삭제
+* URL : api/post/detail/1/delete/
+* Method : POST
+* Description : 특정 게시물을 웹 사이트에서 제거할 수 있습니다. 
+* Response :
+```
+{
+"msg": "Post deleted",
+}
+```
